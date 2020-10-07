@@ -1,0 +1,176 @@
+<?php
+session_start();
+if($_SESSION['status']!="active"){
+  header("location:index.html");
+}
+?>
+<!Doctype html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bloodbank.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <style>body{
+  background-image:url(blood1.jpg);
+  }
+</style>
+</head>
+<body>
+  <header>
+<a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="Sign out" onclick="signout()">
+ Sign out </a>
+</header>
+<style type="text/css">
+header{
+  background-color: black;
+  color: white;
+  text-decoration:none;
+}
+</style>
+<h1>Receivers</h1>
+<table id="myTable">
+	<tr><th id="abc" style="left:0;">Name</th>
+    <th id="abc" style="padding:0 25px 0 25px;">Contact</th>
+		<th  id="abc"style="padding:0 20px 0 25px;">Address</th>
+		<th id="abc" style="padding:0 20px 0 25px;">Blood Group</th>
+		<th id="abc" style="padding:0 25px 0 25px;">Sex</th>
+    <th id="abc" style="padding:0 25px 0 25px;">DateofReceiving</th>
+</tr>
+	</table>
+	<br>
+	<br>
+		<button onclick="sort()">Sort By Date</button>
+		<br>
+		<br>
+		<ul class = "pagination pagination-sm">
+   <li ><a href = "#">&laquo;</a></li>
+    <li ><a href = "set1.php">Receivers</a></li>
+    <li><a href = "set2.php">Donors</a></li>
+   <li><a href = "#">&raquo;</a></li>
+</ul>
+<a href="chatbox.html" class="btn btn-info" role="button" style="background-color: black;color: white;border:1px solid black;">Chat</a>
+		</body>
+<script type="text/javascript">
+  $(window).ready(function(){
+ var xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+  if(xmlhttp.readyState==4 && xmlhttp.status==200){
+  var obj=JSON.parse(xmlhttp.responseText);
+  var i=0;
+  var names=obj[0];
+  var contact=obj[1];
+  var addr=obj[2];
+  var bg=obj[3];
+  var sex=obj[4];
+  var dateofreceiving=obj[5];
+ while(i<names.length){
+var table = document.getElementById("myTable");
+var row = table.insertRow(1);
+var cell1 = row.insertCell(0);
+var cell2 = row.insertCell(1);
+var cell3 = row.insertCell(2);
+var cell4 = row.insertCell(3);
+var cell5 = row.insertCell(4);
+var cell6 = row.insertCell(5);
+cell1.style.left="0";
+cell2.style.padding="0 25px 0 25px";
+cell3.style.padding="0 25px 0 25px";
+cell4.style.padding="0 25px 0 25px";
+cell5.style.padding="0 25px 0 25px";
+cell6.style.padding="0 25px 0 25px";
+cell1.innerHTML = names[i];
+cell2.innerHTML = contact[i];
+cell3.innerHTML = addr[i];
+cell4.innerHTML = bg[i];
+cell5.innerHTML = sex[i];
+cell6.innerHTML=dateofreceiving[i];
+
+i++;
+  }
+}
+}
+xmlhttp.open('GET','admin.php',true);
+xmlhttp.send();
+});
+</script>
+<script>
+var myNode = document.getElementById("myTable");
+function sort(){
+while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+}
+var table = document.getElementById("myTable");
+var row = table.insertRow(0);
+var cell1 = row.insertCell(0);
+var cell2 = row.insertCell(1);
+var cell3 = row.insertCell(2);
+var cell4 = row.insertCell(3);
+var cell5 = row.insertCell(4);
+var cell6=row.insertCell(5);
+cell1.innerHTML = "<b>Names</b>";
+cell2.innerHTML = "<b>Contact</b>";
+cell3.innerHTML = "<b>Address</b>";
+cell4.innerHTML = "<b>Blood Group</b>";
+cell5.innerHTML = "<b>Sex</b>";
+cell6.innerHTML = "<b>Dateofreceiving</b>";
+cell1.style.left="0";
+cell2.style.padding="0 25px 0 25px";
+cell3.style.padding="0 25px 0 25px";
+cell4.style.padding="0 25px 0 25px";
+cell5.style.padding="0 25px 0 25px";
+cell6.style.padding="0 25px 0 25px";
+var xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+  if(xmlhttp.readyState==4 && xmlhttp.status==200){
+  var obj=JSON.parse(xmlhttp.responseText);
+  var i=0;
+  var names=obj[0];
+  var contact=obj[1];
+  var addr=obj[2];
+  var bg=obj[3];
+  var sex=obj[4];
+  var dateofreceiving=obj[5];
+ while(i<names.length){
+var table = document.getElementById("myTable");
+var row = table.insertRow(1);
+var cell1 = row.insertCell(0);
+var cell2 = row.insertCell(1);
+var cell3 = row.insertCell(2);
+var cell4 = row.insertCell(3);
+var cell5 = row.insertCell(4);
+var cell6 = row.insertCell(5);
+cell1.style.left="0";
+cell2.style.padding="0 25px 0 25px";
+cell3.style.padding="0 25px 0 25px";
+cell4.style.padding="0 25px 0 25px";
+cell5.style.padding="0 25px 0 25px";
+cell6.style.padding="0 25px 0 25px";
+cell1.innerHTML = names[i];
+cell2.innerHTML = contact[i];
+cell3.innerHTML = addr[i];
+cell4.innerHTML = bg[i];
+cell5.innerHTML = sex[i];
+cell6.innerHTML=dateofreceiving[i];
+    i++;
+  }
+}
+}
+xmlhttp.open('GET','sort.php',true);
+xmlhttp.send();
+}
+</script>
+<script type="text/javascript">
+    function signout(){
+     <?php 
+      unset($_SESSION['status']);
+      ?>
+      alert('Successfully Signed Out');
+      location.href='index.html';
+    }
+  </script> 
+</html>

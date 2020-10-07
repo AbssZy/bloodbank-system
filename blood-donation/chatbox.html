@@ -1,0 +1,45 @@
+<?php session_start(); ?>
+<html>
+<head>
+<title>Chat Box</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="stylechatn.css">
+</head>
+<body>
+	<div id="box" style="background-image:linear-gradient(to right,#659999,#f4791f);">
+<h3 id="one"><b><u> Begin your chat :</u> <?php 
+$name=$_SESSION["name"];
+echo $name;
+?></b></h3>
+
+<p id="chatlogs"></p>
+<div class="messec">
+<form name="form1">
+Your Message: <br/>
+<textarea name="msg" id="mes" rows="3" cols="50"> </textarea></br>
+</form>
+<button onclick="chat()" id="btn">Send</button></br></br>
+</div>
+<script type="text/javascript">
+function chat(){
+var msg=form1.msg.value;
+document.getElementById("mes").innerHTML=" ";
+    var xmlhttp =new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+   if(xmlhttp.readyState==4 && xmlhttp.status==200){
+   document.getElementById("chatlogs").innerHTML=xmlhttp.responseText;
+   }
+}
+  xmlhttp.open('GET','chat.php?msg='+msg,true);
+  xmlhttp.send();
+  }
+$(document).ready(function(e){
+$.ajaxSetup({cache:false});
+setInterval(function(){$("#chatlogs").load("logs.php");
+},1000);
+});
+</script>
+</div>
+</body>
+</html>
+
